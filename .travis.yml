@@ -1,0 +1,34 @@
+language: java
+jdk:
+  - oraclejdk8
+install:
+  - mvn --settings .travis/settings.xml install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+before_install:
+  - openssl aes-256-cbc -K $encrypted_e30956d271fb_key -iv $encrypted_e30956d271fb_iv -in .travis/codesigning.asc.enc -out .travis/codesigning.asc -d
+  - gpg --fast-import .travis/codesigning.asc
+deploy:
+  -
+    provider: script
+    script: .travis/deploy.sh
+    on:
+      repo: Bessonov/utils
+      branch: master
+      jdk: oraclejdk8
+  -
+    provider: script
+    script: .travis/deploy.sh
+    on:
+      repo: Bessonov/utils
+      tags: true
+      jdk: oraclejdk8
+cache:
+  directories:
+    - ~/.m2/repository
+env:
+  global:
+    - # SONATYPE_USERNAME
+    - secure: "GMePU5lw0ClndpujHNwksU0yiDoYE0MMKnTrxDn2nD4k1xoxa8Fudz1lBRFXiSEUqWE54pQFn7R+40NWo4NntB5WbVl6zsLkfR/mLDv6DpwXiL+Y1aVw3TLHb8Zgoxb3OhMxKDCat5578N0uQO+gDhsb6r0H0PaligBKiy3zAT5FIvMFCjwDfSr7czkYQCN+Ju7Zwi+CY1IN80L1hwmxGJ7QgSE65bmXBWgtlFvdz0aTsyMQgu8bZiSXhMRm/W5VtNXFHERPhte/ziQlU/5I2HiJhEujG5XLfWLm0jmwV7UxhknqcfI6AIWZ4beBX5rK0qlFFy7vGJ1oKr2tdysFDxxCuuHx50nga640B3Xr2W5SA7hZK1viNTqSx6nxXRxL/bOPO+zahRZe0uUfx1T5Mdb6XYmLmZu6gQgICuSLotJf2GFFTOIf875Sqn0SLeDhXUhh0gMRyLQIBG9Tdzah6YqFmQi3K2QN1HDOIQGDtphrMYcP9p1fJrDq3K35+nRG8MICaRz/RuY5M8uTs34W9dkUUNxIdICnDppSZoa3RQgOiyZJpVig6hbgHvfE51bhREvex85qYJsSYxRD8JbMEdu9EpUzgNlsRWrc9YsGbubGBal/TNpxKnCuAzvzUkv5bXplLwUL0CzCdH/ucu4KqZittShnUo0xZ4wRcaSk8Ho="
+    - # SONATYPE_PASSWORD
+    - secure: "RdRXET43o/FcUbIuTHdf994A5oAnseiMXfRbOCU7EnxIYLoK0BDplYfRQdq7pGUBFQJDQGwek4eRRXyAVvbsviMQPicKK15TRNEF41o+WbzlerLQezSXK0VnCz+GRfcWa48Ofi8N3KyS6uBAxpP6KlAhXm7v/0xI192g1Xc42iy/nGxYZ5Nkfc6WaO2F/OMUF+LL8PfLx0hTiXBks3BbyIHiK/DACCNP6R5gG1cokG+wXzU7iOT4NzlBviIio7xRfvQ0VJHTzTqYx7OLhrpsAUaYyg8g493wExqEgmA1WoQwFP7gNj9wpR4g0hWCWvttbXqMHPGEhze8VckqBcuKFaL9ZIIPkjWWXH/LrllRIFn/vTTCgkaFUoukWdG39okPkOCQJnDdy4Dseqf0uNsSREzkcd0NjQWnnTpe4Fsou15P8xLzvb0UvmPSa6Ed4jZG4zj5T5Q9EFYzSE2ByHhitIavlOFcZkLY1IvjMWYPgVpURv41WUv74jI42kQWjRjgeLynMNFYcDLHKofvaLHvefvAJ4AWajAVkunCv3j5M0AA3uwxdKCigGqIDXxlxHcMKYjjOdl3mPFFXceyE1FgZpw5dlzhznFR23nlkSArKv4+Z6FJekw88KYls12S6LapYwaewnvOmWxIBBBuj7IhruX3EZTy8csQriN17Mqrp60="
+    - # GPG_PASSPHRASE
+    - secure: "CkbHzTwQeKg8AoWfYQW3JJkxmDCi9TsWZ/H7JTLm+GnMyAjEANMTSjY0Wsyps7oUPWtGJMY5DLqYr+iwHIYcIbDPJ/Fp7p2lrcGHXmUSfHwDV3KbtYCth4O/iGpC7oXcKJchfl3KtaLwdVE9Wh0U1g3d/SbRA0HNjgzKxnyG8v9lSpnQcDveBiXf0XKFTqzT57sZ/g9C85xvESWjgUCy5bJ2Z+a27fVOy1YiPYSK8KW9hs+vOOmlHepJJxCLzVxJOVubsL1gOu5Gur2ZrswhwUjTRRCg4TLev7oQ+M8I6lb0bi+B1LQ+J9ie5E7jouBlbAlQ2Ahw7zpIx0PfWpDZkUeY+d54q7umnBpS4lAeQFmSrS68jjPJrFRJNTpQ4qDRMIHAcmHM8bu+RkR8H6pfbu7iobGB8vQmT+13l3/DhOhTdYDcMKmSIRK3zs5wTBKUlGCieIKT8IpmgYhVnIVTAK2t+ITOMqnitzMZo+F9at5rOlMIVXBmk65X8WNDBsBJUSCqNFeOzynYuNqo/oeKTUDcd8bJWwMSo2JMI8nVp3lG/R/4RhQvdXdlZAenmSDfDSrogxY6oIJLhUfPQ6f3qwnwarGrgH5qYgyNACO2L3EdFrVT6IyJ7qanYuL/gS6WTLnwR6XR1Qg85GNFDEIbpbzGILKs8d59vF77L11JHbM="
