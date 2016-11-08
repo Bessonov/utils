@@ -3,14 +3,14 @@
 
 	<name>bessonov utils</name>
 	<description>
-		Helpful utilities that make life easier
+		Helpful utilities that make life easier and save your ass
 	</description>
 
 	<url>https://github.com/Bessonov/utils</url>
 
 	<groupId>de.bessonov</groupId>
 	<artifactId>utils</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -27,7 +27,7 @@
 	<licenses>
 		<license>
 			<name>The MIT License</name>
-			<url>https://raw.githubusercontent.com/Bessonov/utils/LICENSE.txt</url>
+			<url>https://raw.githubusercontent.com/Bessonov/utils/master/LICENSE.txt</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -43,7 +43,7 @@
 	<scm>
 		<url>https://github.com/Bessonov/utils</url>
 		<connection>scm:git:git://github.com/Bessonov/utils.git</connection>
-		<developerConnection>scm:git:git@github.com:Bessonov/utils/.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:Bessonov/utils.git</developerConnection>
 	</scm>
 
 	<prerequisites>
@@ -170,6 +170,12 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.3.0</version>
 			</plugin>
 
 			<plugin>

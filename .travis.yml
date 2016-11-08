@@ -1,11 +1,18 @@
 language: java
+
 jdk:
   - oraclejdk8
+
 install:
   - mvn --settings .travis/settings.xml install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 before_install:
   - openssl aes-256-cbc -K $encrypted_e30956d271fb_key -iv $encrypted_e30956d271fb_iv -in .travis/codesigning.asc.enc -out .travis/codesigning.asc -d
   - gpg --fast-import .travis/codesigning.asc
+
+script:
+  - mvn clean test verify jacoco:report coveralls:report
+
 deploy:
   -
     provider: script
@@ -14,6 +21,7 @@ deploy:
       repo: Bessonov/utils
       branch: master
       jdk: oraclejdk8
+      condition: "$TRAVIS_PULL_REQUEST = false"
   -
     provider: script
     script: .travis/deploy.sh
@@ -21,9 +29,12 @@ deploy:
       repo: Bessonov/utils
       tags: true
       jdk: oraclejdk8
+      condition: "$TRAVIS_PULL_REQUEST = false"
+
 cache:
   directories:
     - ~/.m2/repository
+
 env:
   global:
     - # SONATYPE_USERNAME

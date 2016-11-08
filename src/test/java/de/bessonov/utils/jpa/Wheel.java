@@ -2,7 +2,7 @@ package de.bessonov.utils.jpa;
 
 public class Wheel {
 
-	private static ManyToOneManager<Wheel, Car> CAR_MANAGER = new ManyToOneManager<>(
+	private static final ManyToOneManager<Wheel, Car> CAR_MANAGER = new ManyToOneManager<>(
 			Car.WHEELS_MANAGER,
 			wheel -> wheel.car,
 			(wheel, car) -> wheel.car = car);

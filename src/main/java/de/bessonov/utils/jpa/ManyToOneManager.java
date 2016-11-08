@@ -9,7 +9,7 @@ import java.util.function.Function;
  * <pre class="code">
 	public class Wheel {
 
-		private static ManyToOneManager&lt;Wheel, Car&gt; CAR_MANAGER = new ManyToOneManager&lt;&gt;(
+		private static final ManyToOneManager&lt;Wheel, Car&gt; CAR_MANAGER = new ManyToOneManager&lt;&gt;(
 				Car.WHEELS_MANAGER,
 				wheel -&gt; wheel.car,
 				(wheel, car) -&gt; wheel.car = car);

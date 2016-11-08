@@ -1,4 +1,11 @@
-# Helpful utilities that make life easier
+# Helpful utilities that make life easier and save your ass
+=============================
+[![Project is](https://img.shields.io/badge/Project%20is-fantastic-ff69b4.svg)](https://github.com/Bessonov/utils)
+[![Build Status](https://travis-ci.org/Bessonov/utils.svg?branch=master)](https://travis-ci.org/Bessonov/utils)
+[![Coverage Status](https://coveralls.io/repos/github/Bessonov/utils/badge.svg?branch=master)](https://coveralls.io/github/Bessonov/utils?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.bessonov/utils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.bessonov/utils/)
+[![License](http://img.shields.io/:license-MIT-blue.svg)](https://raw.githubusercontent.com/Bessonov/utils/master/LICENSE.txt)
+
 
 ## Relationship manager
 
