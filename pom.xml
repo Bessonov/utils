@@ -24,6 +24,11 @@
 	</organization>
 	<inceptionYear>2016</inceptionYear>
 
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/Bessonov/utils/issues</url>
+	</issueManagement>
+
 	<licenses>
 		<license>
 			<name>The MIT License</name>
@@ -51,6 +56,15 @@
 	</prerequisites>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.11.Final</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

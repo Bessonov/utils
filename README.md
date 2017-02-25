@@ -21,6 +21,46 @@ After that, use it to define a many-to-one manager, like this [Wheel](src/test/j
 
 Define managers is a little bit tricky. But to think "one car have many wheels" helps to interpolate the example.
 
+## MySQL5InnoDBDynamicDialect for MySQL and MariaDB
+
+Adds `ROW_FORMAT=DYNAMIC` to `CREATE TABLE` statement. This is useful to avoid a `Specified key was too long; max key length is 767 bytes` or `Index column size too large. The maximum column size is 767 bytes.` errors if utf8mb4 is used for emoji's.
+
+### Usage
+
+With spring boot (application.yml):
+
+```
+spring.jpa.properties.hibernate.dialect: de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
+```
+
+With liquibase:
+
+```
+hibernate.dialect=de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
+referenceUrl=hibernate:spring:db?dialect=de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
+```
+
+`liquibase-maven-plugin` should have following dependency:
+
+```
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase.maven.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>de.bessonov</groupId>
+						<artifactId>utils</artifactId>
+						<version>${bessonov.utils.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+```
+
+Additionally, following variables must be set for a db:
+- innodb_file_format=barracuda
+- innodb_large_prefix=1
+
 # License
 
 The MIT License (MIT)
