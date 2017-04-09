@@ -1,65 +1,30 @@
-# Helpful utilities that make life easier and save your ass
-=============================
+
 [![Project is](https://img.shields.io/badge/Project%20is-fantastic-ff69b4.svg)](https://github.com/Bessonov/utils)
 [![Build Status](https://travis-ci.org/Bessonov/utils.svg?branch=master)](https://travis-ci.org/Bessonov/utils)
 [![Coverage Status](https://coveralls.io/repos/github/Bessonov/utils/badge.svg?branch=master)](https://coveralls.io/github/Bessonov/utils?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.bessonov/utils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.bessonov/utils/)
 [![License](http://img.shields.io/:license-MIT-blue.svg)](https://raw.githubusercontent.com/Bessonov/utils/master/LICENSE.txt)
 
+# Helpful utilities that make life easier and save your ass
+
+[Get it from maven central](https://maven-badges.herokuapp.com/maven-central/de.bessonov/utils/)
 
 ## Relationship manager
 
 With JPA or like you must synchronize both sides of OneToMany-Relation to avoid side effects. Therefore I build a relationship manager to avoid a boiler plate and error prone code. Because it's not depend on JPA, it can be used every time to synchronize relations.
 
-### Usage
-
-Entities can be used like normal [objects](src/test/java/de/bessonov/utils/jpa/OneToManyToOneManagerTest.java).
-
-To use managers, define a one-to-many manager first, like this [Car](src/test/java/de/bessonov/utils/jpa/Car.java) and add add/remove methods.
-
-After that, use it to define a many-to-one manager, like this [Wheel](src/test/java/de/bessonov/utils/jpa/Wheel.java).
-
-Define managers is a little bit tricky. But to think "one car have many wheels" helps to interpolate the example.
+[More...](src/main/java/de/bessonov/utils/jpa/RelationshipManager.md)
 
 ## MySQL5InnoDBDynamicDialect for MySQL and MariaDB
 
 Adds `ROW_FORMAT=DYNAMIC` to `CREATE TABLE` statement. This is useful to avoid a `Specified key was too long; max key length is 767 bytes` or `Index column size too large. The maximum column size is 767 bytes.` errors if utf8mb4 is used for emoji's.
 
-### Usage
+[More...](src/main/java/de/bessonov/utils/hibernate/MySQL5InnoDBDynamicDialect.md)
 
-With spring boot (application.yml):
+## Collection of utilities
 
-```
-spring.jpa.properties.hibernate.dialect: de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
-```
-
-With liquibase:
-
-```
-hibernate.dialect=de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
-referenceUrl=hibernate:spring:db?dialect=de.bessonov.utils.hibernate.MySQL5InnoDBDynamicDialect
-```
-
-`liquibase-maven-plugin` should have following dependency:
-
-```
-			<plugin>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-maven-plugin</artifactId>
-				<version>${liquibase.maven.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>de.bessonov</groupId>
-						<artifactId>utils</artifactId>
-						<version>${bessonov.utils.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-```
-
-Additionally, following variables must be set for a db:
-- innodb_file_format=barracuda
-- innodb_large_prefix=1
+[ObjectUtils](src/main/java/de/bessonov/utils/ObjectUtils.java)
+- firstNotNull: returns first not null value
 
 # License
 
